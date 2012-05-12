@@ -3,14 +3,10 @@
 	<button type="submit" class="btn">Search</button>
 </form>
 
-<div id="pivotal-projects"></div>
-
-<script type="text/html" id="project">
-	<div class="row" data-project-name="{{ name }}" data-project-id="{{ id }}">
-		<h4><a name="{{ name }}">{{ name }}</a></h4>
-		<ul class="thumbnails"></ul>
-	</div>
-</script>
+<div id="pivotal-projects">
+	<h4 id="number-of-results"></h4>
+	<ul class="thumbnails"></ul>
+</div>
 
 <script type="text/html" id="story">
 	<li class="span6">
@@ -37,11 +33,37 @@
 </script>
 
 <script>
-	var projects = new Backbone.Collection({
-		url: "/projects"
+	var stories = new Backbone.Collection;
+	
+	stories.fetch({
+		url: "/stories"
 	});
 	
-	var stories = new Backbone.Collection({
-		url: "/stories"
+	$("#search-form").on("submit", function(){
+		var display = $("#pivotal-projects ul.thumbnails");
+		var result_count = $("#pivotal-projects #number-of-results");
+		
+		display.html("Searching...");
+		var res = stories.filter(function(story)
+		{
+			return story.attributes.name.indexOf($("#search-form .search-query").val()) != -1;
+		});
+		
+		if(res.length > 0)
+		{
+			result_count.html(res.length + " stories found");
+			display.html("");
+			_.each(res, function(story){
+				display.append(ich.story(story.attributes));
+			});
+		}
+		else
+		{
+			display.html("");
+			result_count.html("No results found");
+		}
+		
+		
+		return false;
 	});
 </script>

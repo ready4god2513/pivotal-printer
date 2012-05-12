@@ -7,30 +7,6 @@ class PivotalPrinter < Sinatra::Base
     erb :index
   end
   
-  get "/projects" do
-    projects = Array.new
-    
-    fetch_projects.each do |project|
-      projects.push({
-        id: project.id,
-        name: project.name,
-        account: project.account,
-        week_start_day: project.week_start_day,
-        point_scale: project.point_scale,
-        labels: project.labels,
-        velocity_scheme: project.velocity_scheme,
-        iteration_length: project.iteration_length,
-        initial_velocity: project.initial_velocity,
-        current_velocity: project.current_velocity,
-        last_activity_at: project.last_activity_at,
-        first_iteration_start_time: project.first_iteration_start_time,
-        current_iteration_number: project.current_iteration_number
-      })
-    end
-    
-    projects.to_json
-  end
-  
   get "/stories" do
     stories = Array.new
     
