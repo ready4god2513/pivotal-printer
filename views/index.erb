@@ -4,6 +4,7 @@
 </form>
 
 <div id="pivotal-projects">
+	<h4 id="waiting">Fetching stories from Pivotal...</h4>
 	<h4 id="number-of-results"></h4>
 	<ul class="thumbnails"></ul>
 </div>
@@ -36,7 +37,13 @@
 	var stories = new Backbone.Collection;
 	
 	stories.fetch({
-		url: "/stories"
+		url: "/stories",
+		success: function()
+		{
+			$("#waiting").fadeOut("normal", function(){
+				$(this).remove();
+			});
+		}
 	});
 	
 	$("#search-form").on("submit", function(){
@@ -46,7 +53,7 @@
 		display.html("Searching...");
 		var res = stories.filter(function(story)
 		{
-			return story.attributes.name.indexOf($("#search-form .search-query").val()) != -1;
+			return story.attributes.name.toLowerCase().indexOf($("#search-form .search-query").val().toLowerCase()) != -1;
 		});
 		
 		if(res.length > 0)
