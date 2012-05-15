@@ -10,21 +10,26 @@
 </div>
 
 <script type="text/html" id="story">
-	<li class="span6">
+	<li class="span6" data-project-name="{{ project }}">
 		<div class="thumbnail">
 			<header class="row">
 				<div class="span4">
-					<h5>
+					<h6>{{ project }}</h6>
+					<h6>
 						<span class="label" data-story-type="{{ story_type }}">{{ story_type }}</span> 
-						<span data-story-name="{{ name }}">{{ name }}</span>
-					</h5>
-					<h5 data-story-owner="{{ owned_by }}">
-						<span class="label label-info">Owner</span>
-						{{ owned_by }}
-					</h5>
+						<a href="https://www.pivotaltracker.com/story/show/{{ id }}" target="_blank" data-story-name="{{ name }}">{{ name }}</a>
+					</h6>
+					{{#owned}}
+						<h6 data-story-owner="{{ owned_by }}">
+							<span class="label label-info">Owner</span>
+							{{ owned_by }}
+						</h6>
+					{{/owned}}
 				</div>
 				<h6 class="pull-right">
-					<span data-story-estimate="{{ estimate }}">{{ estimate }}</span>
+					{{#estimateable}}
+						<span data-story-estimate="{{ estimate }}">{{ estimate }} points</span>
+					{{/estimateable}}
 					<span class="label label-state" data-story-current-state="{{ current_state }}">{{ current_state }}</span>
 				</h6>
 			</header>
