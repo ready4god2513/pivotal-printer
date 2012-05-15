@@ -1,6 +1,6 @@
 class PivotalPrinter < Sinatra::Base
   
-  PivotalTracker::Client.token = ""
+  PivotalTracker::Client.token = "416389666dfa61bad7d773209ab49835"
   PivotalTracker::Client.use_ssl = true
   
   get "/" do
@@ -8,12 +8,13 @@ class PivotalPrinter < Sinatra::Base
   end
   
   get "/stories" do
-    stories = Array.new
+    @stories = Array.new
     
     fetch_projects.each do |project|
       project.stories.all.each do |story|
-        stories.push({
+        @stories.push({
           id: story.id,
+          project_id: project.id,
   				url: story.url,
   				created_at: story.created_at,
   				accepted_at: story.accepted_at,
@@ -35,7 +36,14 @@ class PivotalPrinter < Sinatra::Base
       end
     end
     
-    stories.to_json
+    @stories.to_json
+  end
+  
+  get "/projects/:project_id/story/:id" do |project_id, id|
+    @project = PivotalTracker::Project.find(project_id)
+    @story = @project.stories.find(id)
+    
+    erb :show, :locals => {:project => @project, :story => @story}
   end
   
   def fetch_projects
