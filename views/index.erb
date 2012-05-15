@@ -9,32 +9,4 @@
 	<ul class="thumbnails"></ul>
 </div>
 
-<script type="text/html" id="story">
-	<li class="span6" data-project-name="{{ project }}">
-		<div class="thumbnail">
-			<header class="row">
-				<div class="span4">
-					<h6>{{ project }}</h6>
-					<h6>
-						<span class="label" data-story-type="{{ story_type }}">{{ story_type }}</span> 
-						<a href="https://www.pivotaltracker.com/story/show/{{ id }}" target="_blank" data-story-name="{{ name }}">{{ name }}</a>
-					</h6>
-					{{#owned}}
-						<h6 data-story-owner="{{ owned_by }}">
-							<span class="label label-info">Owner</span>
-							{{ owned_by }}
-						</h6>
-					{{/owned}}
-				</div>
-				<h6 class="pull-right">
-					{{#estimateable}}
-						<span data-story-estimate="{{ estimate }}">{{ estimate }} points</span>
-					{{/estimateable}}
-					<span class="label label-state" data-story-current-state="{{ current_state }}">{{ current_state }}</span>
-				</h6>
-			</header>
-			<p class="story-description">{{ description }}</p>
-			<p><a href="/project/{{ project_id }}/story/{{ id }}" target="_blank">Print</a></p>
-		</div>
-	</li>
-</script>
+<%= File.read(File.join(settings.public_folder, "story-template.html")) %>
