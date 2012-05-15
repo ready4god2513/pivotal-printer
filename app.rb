@@ -1,6 +1,6 @@
 class PivotalPrinter < Sinatra::Base
   
-  PivotalTracker::Client.token = "416389666dfa61bad7d773209ab49835"
+  PivotalTracker::Client.token = ""
   PivotalTracker::Client.use_ssl = true
   
   get "/" do

@@ -35,6 +35,8 @@
 	
 	window.StoryView = Backbone.View.extend({
 		template: _.template($("#story-template").html()),
+		tagName: "li",
+		className: "span6",
 		
 		render: function()
 		{
@@ -44,6 +46,31 @@
 	});
 	
 	
+	window.StoriesView = Backbone.View.extend({
+		
+		initialize: function()
+		{
+			_.bindAll(this, "render");
+			this.collection.bind("reset", this.render);
+		},
+		
+		render: function()
+		{
+			$("#waiting").fadeOut("slow");
+			this.collection.each(this.renderStory);
+		},
+		
+		renderStory: function(story)
+		{
+			var view = new StoryView({
+				model: story
+			});
+			this.$("#pivotal-projects .thumbnails").append(view.render().el);
+		}
+	});
+	
+	
+	
 	$(function(){
 		
 		window.PivotalPrinter = Backbone.Router.extend({
@@ -51,6 +78,13 @@
 				"" : "index",
 				"projects/search/:params": "search",
 				"projects/:project_id/story/:id": "print"
+			},
+			
+			initialize: function()
+			{
+				this.storiesView = new StoriesView({
+					collection: window.stories
+				});
 			},
 
 			index: function()
