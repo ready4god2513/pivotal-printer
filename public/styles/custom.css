@@ -20,3 +20,8 @@
 {
 	background:#bd362f;
 }
+
+#error-handler
+{
+	display:none;
+}

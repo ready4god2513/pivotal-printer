@@ -89,7 +89,7 @@
 
 			index: function()
 			{
-				
+				$("#pivotal-projects").prepend("<h4 id=\"waiting\">Fetching stories from Pivotal...</h4>");
 			},
 
 			search: function()
@@ -101,6 +101,12 @@
 			{
 
 			}
+		});
+		
+		
+		// Set up the global error handling
+		$(document).ajaxError(function(e, jqxhr, settings, exception){
+			$("#error-handler").html("Something bad happened : " + exception).slideDown();
 		});
 		
 		
