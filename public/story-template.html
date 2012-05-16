@@ -1,27 +1,25 @@
 <script type="text/template" id="story-template">
-	<div class="thumbnail" data-project-name="<%= project %>">
-		<header class="row">
-			<div class="span4">
-				<h6><%= project %></h6>
-				<h6>
-					<span class="label" data-story-type="<%= story_type %>"><%= story_type %></span> 
-					<a href="https://www.pivotaltracker.com/story/show/<%= id %>" target="_blank" data-story-name="<%= name %>"><%= name %></a>
-				</h6>
-				<% if(owned) { %>
-					<h6 data-story-owner="<%= owned_by %>">
-						<span class="label label-info">Owner</span>
-						<%= owned_by %>
-					</h6>
-				<% } %>
-			</div>
-			<h6 class="pull-right">
-				<% if(estimateable) { %>
-					<span data-story-estimate="<%= estimate %>"><%= estimate %> points</span>
-				<% } %>
-				<span class="label label-state" data-story-current-state="<%= current_state %>"><%= current_state %></span>
+	<header class="row">
+		<div class="span6">
+			<h6><%= project %></h6>
+			<h6>
+				<span class="label" data-story-type="<%= story_type %>"><%= story_type %></span> 
+				<a href="https://www.pivotaltracker.com/story/show/<%= id %>" target="_blank" data-story-name="<%= name %>"><%= name %></a>
 			</h6>
-		</header>
-		<p class="story-description"><%= description %></p>
-		<p><a href="/projects/<%= project_id %>/story/<%= id %>" target="_blank">Print</a></p>
-	</div>
+			<% if(owned) { %>
+				<h6 data-story-owner="<%= owned_by %>">
+					<span class="label label-info">Owner</span>
+					<%= owned_by %>
+				</h6>
+			<% } %>
+		</div>
+		<h6 class="pull-right">
+			<% if(estimateable) { %>
+				<span data-story-estimate="<%= estimate %>"><%= estimate %> points</span>
+			<% } %>
+			<span class="label label-state" data-story-current-state="<%= current_state %>"><%= current_state %></span>
+			<span class="label label-info"><i class="icon-print icon-white"></i> <a href="/projects/<%= project_id %>/story/<%= id %>" target="_blank">Print</a></span>
+		</h6>
+	</header>
+	<p class="story-description"><%= description %></p>
 </script>

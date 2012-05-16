@@ -1,12 +1,4 @@
-.thumbnail
-{
-	height:150px;
-	overflow:auto;
-	padding:10px;
-	word-wrap:break-word;
-}
-
-.thumbnail p
+p.story-description
 {
 	margin-top:10px;
 }
@@ -19,6 +11,11 @@
 .label-bug
 {
 	background:#bd362f;
+}
+
+.label a
+{
+	color:#fff;
 }
 
 #error-handler

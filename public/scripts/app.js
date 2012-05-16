@@ -30,13 +30,10 @@
 		}
 	});
 	
-	window.stories = new Stories();
-	window.stories.fetch();
-	
 	window.StoryView = Backbone.View.extend({
 		template: _.template($("#story-template").html()),
-		tagName: "li",
-		className: "span6",
+		tagName: "section",
+		className: "well",
 		
 		render: function()
 		{
@@ -65,7 +62,7 @@
 			var view = new StoryView({
 				model: story
 			});
-			this.$("#pivotal-projects .thumbnails").append(view.render().el);
+			this.$("#stories").append(view.render().el);
 		}
 	});
 	
@@ -82,14 +79,19 @@
 			
 			initialize: function()
 			{
+				window.stories = new Stories();
+				window.stories.fetch();
+				
 				this.storiesView = new StoriesView({
 					collection: window.stories
 				});
+				
+				$("#pivotal-projects").prepend("<h4 id=\"waiting\">Fetching stories from Pivotal...</h4>");
 			},
 
 			index: function()
 			{
-				$("#pivotal-projects").prepend("<h4 id=\"waiting\">Fetching stories from Pivotal...</h4>");
+				
 			},
 
 			search: function()
