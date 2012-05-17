@@ -54,6 +54,8 @@
 		render: function()
 		{
 			$("#waiting").fadeOut("slow");
+			this.$("#stories").html("");
+			this.updateCount();
 			this.collection.each(this.renderStory);
 		},
 		
@@ -63,6 +65,11 @@
 				model: story
 			});
 			this.$("#stories").append(view.render().el);
+		},
+		
+		updateCount: function()
+		{
+			$("#number-of-results").html(this.collection.length + " results fetched");
 		}
 	});
 	
@@ -94,9 +101,9 @@
 				
 			},
 
-			search: function()
+			search: function(query)
 			{
-
+				
 			},
 
 			print: function()
@@ -113,8 +120,13 @@
 		
 		
 		// Kick off the application
-        window.App = new PivotalPrinter();
+        window.app = new PivotalPrinter();
         Backbone.history.start({pushState: true});
+
+		$("#search-form").on("submit", function(){
+			window.app.navigate("projects/search/" + $("#search-query").val(), {trigger: true});
+			return false;
+		});
 	});
 
 })(jQuery);
