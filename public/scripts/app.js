@@ -81,12 +81,16 @@
 			routes: {
 				"" : "index",
 				"projects/search/:params": "search",
-				"projects/:project_id/story/:id": "print"
+				"stories/:id": "show"
 			},
 			
 			initialize: function()
 			{
 				window.stories = new Stories();
+			},
+
+			index: function()
+			{
 				window.stories.fetch();
 				
 				this.storiesView = new StoriesView({
@@ -96,19 +100,14 @@
 				$("#pivotal-projects").prepend("<h4 id=\"waiting\">Fetching stories from Pivotal...</h4>");
 			},
 
-			index: function()
-			{
-				
-			},
-
 			search: function(query)
 			{
 				
 			},
 
-			print: function()
+			show: function(id)
 			{
-
+				
 			}
 		});
 		
