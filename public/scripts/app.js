@@ -87,17 +87,15 @@
 			initialize: function()
 			{
 				window.stories = new Stories();
+				$("#pivotal-projects").prepend("<h4 id=\"waiting\">Fetching stories from Pivotal...</h4>");
 			},
 
 			index: function()
 			{
 				window.stories.fetch();
-				
 				this.storiesView = new StoriesView({
 					collection: window.stories
 				});
-				
-				$("#pivotal-projects").prepend("<h4 id=\"waiting\">Fetching stories from Pivotal...</h4>");
 			},
 
 			search: function(query)
@@ -107,7 +105,7 @@
 
 			show: function(id)
 			{
-				
+				console.log(window.stories.get(id));
 			}
 		});
 		
