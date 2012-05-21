@@ -15,17 +15,12 @@
 	<div class="container">
 		<div id="error-handler" class="alert alert-error"></div>
 		
-		<form action="/" method="GET" class="well form-search" id="search-form">
-			<input type="text" class="input-large" id="search-query" placeholder="Search Pivotal Stories">
-			<button type="submit" class="btn">Search</button>
-		</form>
-
+		<%= yield %>
+		
 		<div id="pivotal-projects">
 			<h4 id="number-of-results"></h4>
 			<div id="stories"></div>
 		</div>
-		
-		<%= yield %>
 
 		<%= File.read(File.join(settings.public_folder, "story-template.html")) %>
 	</div>

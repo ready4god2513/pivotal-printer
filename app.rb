@@ -26,41 +26,20 @@ class PivotalPrinter < Sinatra::Base
     erb :index
   end
   
-  get "/stories" do
-    @stories = Array.new
-    
-    PivotalTracker::Project.all.each do |project|
-      project.stories.all.each do |story|
-        @stories.push({
-          id: story.id,
-          project_id: project.id,
-    			url: story.url,
-    			created_at: story.created_at,
-    			accepted_at: story.accepted_at,
-    			project: project.name,
-    			name: story.name,
-    			description: story.description,
-    			story_type: story.story_type,
-    			estimate: story.estimate,
-    			current_state: story.current_state,
-    			requested_by: story.requested_by,
-    			owned_by: story.owned_by,
-    			owned: story.owned_by.nil?,
-    			estimateable: story.story_type.include?("feature"),
-    			labels: story.labels,
-    			deadline: story.deadline,
-    			notes: story.notes,
-    			tasks: story.tasks
-        })
-      end
-    end
-    
+  get "/projects" do
     content_type "application/json"
-    @stories.to_json
+    PivotalTracker::Project.all.to_json
   end
   
-  get "/stories/:id" do |id|
-    erb :show, :locals => {:id => id}
+  get "/projects/:project_id/stories" do |project_id|
+    content_type "application/json"
+    PivotalTracker::Project.find(project_id).to_json
+  end
+  
+  get "/projects/:project_id/stories/:id" do |project_id, id|
+    @project = PivotalTracker::Project.find(project_id)
+    content_type "application/json"
+    @project.stories.find(id).to_json
   end
   
   post "/stories" do
