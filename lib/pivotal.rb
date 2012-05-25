@@ -16,7 +16,7 @@ module PivotalTracker
         last_activity_at: last_activity_at,
         first_iteration_start_time: first_iteration_start_time,
         current_iteration_number: current_iteration_number,
-        stories: stories.all.to_json
+        stories: stories.all
       }.to_json
     end
     
