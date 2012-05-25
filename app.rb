@@ -1,45 +1,40 @@
 class PivotalPrinter < Sinatra::Base
   
-  set :root, File.dirname(__FILE__)
-  register Sinatra::AssetPack
+  register Padrino::Helpers
+  register Sinatra::RespondTo
+  register Jammit
   
-  assets {
-    serve "/js",     from: "public/scripts"        # Optional
-    serve "/css",    from: "public/styles"
-    serve "/images", from: "public/img"
-
-    # The second parameter defines where the compressed version will be served.
-    # (Note: that parameter is optional, AssetPack will figure it out.)
-    js :app, "/js/main.js", [
-      "/js/json2.js", "/js/underscore.js","/js/backbone.js", "/js/app.js"
-    ]
-
-    css :application, "/css/application.css", [
-      "/css/*.css"
-    ]
-  }
-  
-  PivotalTracker::Client.token = "416389666dfa61bad7d773209ab49835"
-  PivotalTracker::Client.use_ssl = true
   
   get "/" do
     erb :index
   end
   
   get "/projects" do
-    content_type "application/json"
-    PivotalTracker::Project.all.to_json
+    @projects = PivotalTracker::Project.all
+    
+    respond_to do |format|
+      format.html {erb "projects/index".to_sym, :locals => {:projects => @projects}}
+      format.json {@projects.to_json}
+    end
   end
   
   get "/projects/:project_id/stories" do |project_id|
-    content_type "application/json"
-    PivotalTracker::Project.find(project_id).to_json
+    @project = PivotalTracker::Project.find(project_id)
+    
+    respond_to do |format|
+      format.html {erb "projects/show".to_sym, :locals => {:project => @project}}
+      format.json {@project.to_json}
+    end
   end
   
   get "/projects/:project_id/stories/:id" do |project_id, id|
     @project = PivotalTracker::Project.find(project_id)
-    content_type "application/json"
-    @project.stories.find(id).to_json
+    @stories = @project.stories.find(id)
+    
+    respond_to do |format|
+      format.html {erb "projects/stories/index".to_sym, :locals => {:projects => @projects, :stories => @stories}}
+      format.json {@stories.to_json}
+    end
   end
   
   post "/stories" do

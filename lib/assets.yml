@@ -1,0 +1,11 @@
+javascripts:
+  application:
+    - public/javascripts/json2.js
+    - public/javascripts/underscore.js
+    - public/javascripts/backbone.js
+    - public/javascripts/app.js
+
+stylesheets:
+  application:
+    - public/stylesheets/bootstrap.css
+    - public/stylesheets/custom.css

@@ -9,7 +9,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
 	<title>Pivotal Printer</title>
-	<%= css :application, :media => 'screen' %>
+	<%= include_stylesheets :application %>
 </head>
 <body>
 	<div class="container">
@@ -26,6 +26,6 @@
 	</div>
 	
 	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-	<%= js  :app %>
+	<%= include_javascripts :application %>
 </body>
 </html>
