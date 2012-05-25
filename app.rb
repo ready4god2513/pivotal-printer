@@ -37,14 +37,11 @@ class PivotalPrinter < Sinatra::Base
   end
   
   post "/stories" do
-    
   end
   
   put "/stories/:id" do
-    
   end
   
   delete "/stories/:id" do
-    
   end
 end
