@@ -1,0 +1,19 @@
+!!! 5
+%html
+	%head
+		%title Pivotal Printer
+		#{include_stylesheets :application}
+	%body
+		%div{:class => "container"}
+			%div{:id => "error-handler", :class => "alert alert-error"}
+			
+			= yield
+			
+			%div{:id => "pivotal-projects"}
+				%h4{:id => "number-of-results"}
+				%div{:id => "stories"}
+			
+			= File.read(File.join(settings.public_folder, "story-template.html"))
+			
+		%script{:src => "http://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js"}
+		= include_javascripts :application

@@ -4,16 +4,15 @@ class PivotalPrinter < Sinatra::Base
   register Sinatra::RespondTo
   register Jammit
   
-  
   get "/" do
-    erb :index
+    haml :index
   end
   
   get "/projects" do
     @projects = PivotalTracker::Project.all
     
     respond_to do |format|
-      format.html {erb "projects/index".to_sym, :locals => {:projects => @projects}}
+      format.html {haml "projects/index".to_sym, :locals => {:projects => @projects}}
       format.json {@projects.to_json}
     end
   end
@@ -22,7 +21,7 @@ class PivotalPrinter < Sinatra::Base
     @project = PivotalTracker::Project.find(project_id)
     
     respond_to do |format|
-      format.html {erb "projects/show".to_sym, :locals => {:project => @project}}
+      format.html {haml "projects/show".to_sym, :locals => {:project => @project}}
       format.json {@project.to_json}
     end
   end
@@ -32,7 +31,7 @@ class PivotalPrinter < Sinatra::Base
     @stories = @project.stories.find(id)
     
     respond_to do |format|
-      format.html {erb "projects/stories/index".to_sym, :locals => {:projects => @projects, :stories => @stories}}
+      format.html {haml "projects/stories/index".to_sym, :locals => {:projects => @projects, :stories => @stories}}
       format.json {@stories.to_json}
     end
   end
